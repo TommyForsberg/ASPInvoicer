@@ -1,0 +1,32 @@
+﻿@model ListAllCustomersVM[]
+<h1>Kunder</h1>
+<div id="listCustomers">
+    @foreach (var cust in Model)
+    {
+
+        <div class="list-group-item">
+            <div class="panel panel-inverse list-group-item">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <button data-toggle="collapse" data-target="#@cust.Id" class="btn btn-default" style="float: left" type="button"><i class="glyphicon glyphicon-info-sign"></i></button>
+                        <button class="btn btn-default" style="float: right" type="button" onclick="location.href='@Url.Action("Edit", "Customers", new { id = @cust.Id })'">Ändra</button>
+                        <div style="align-content: space-around"><b>@cust.Name</b></div>
+                    </div>
+                </div>
+                <div id="@cust.Id" class="panel-collapse collapse">
+                    <div style="color: black" class="panel-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left"><strong>Adress </strong></td>
+                                    <td style="text-align: right">@cust.Adress</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

@@ -1,0 +1,98 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering;
+
+@model InvoiceCreateVM
+@{
+    ViewBag.Title = "Skapa faktura";
+
+}
+<h1>Skapa faktura</h1>
+
+<form asp-controller="Invoice" asp-action="Create">
+    <div class="form-inline">
+        <select class="form-control" asp-for=@Model.SelectedVat asp-items="@Model.VatValues">
+           @* <option>Välj kund</option>*@
+        </select>
+        </div>
+        <div class="form-inline">
+            <input asp-for="@Model.CurrentService.Label" class="form-control" id="inputLabel" placeholder="Label">
+            <input asp-for="@Model.CurrentService.Amount" class="form-control" id="inputAmount" placeholder="Amount">
+            <input asp-for="@Model.CurrentService.Price" class="form-control" id="inputPrice" placeholder="Price">
+            <input asp-for="@Model.JsonString" id="jsonPlace" />
+            <br />
+            <input class="form-control btn-success" type="button" value="Lägg till" id="addService" />
+            <br />
+            <br />
+
+            <div id="servicesList" style="height: 130px; overflow: auto; overflow-y: scroll">
+                <table class="table table-striped ">
+                    <thead> <tr> <th>#</th> <th>Tjänst/vara</th> <th>Antal</th> <th>Pris</th><th>Radera</th> </tr> </thead>
+                </table>
+            </div>
+            <br />
+            @if (Model.Customers != null)
+            {
+                <select class="form-control" asp-for=@Model.SelectedCustomer asp-items="@Model.Customers">
+                    <option>Välj kund</option>
+                </select>
+            }
+            <br />
+            <input class="form-control btn-danger" name="submit" type="submit" value="Arkivera" />
+            <input class="form-control btn btn-warning" name="submit" value="Pdf" type="submit" />
+        </div>
+</form>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+    var servicesArray = new Array();
+    
+    $(document).ready(function () {
+
+        $("#addService").on('click', function () {
+            addServiceToArray();
+            //printAllServices();
+            serializeArrayToJson();
+            var jsonString = JSON.stringify(servicesArray);
+           
+            $.ajax({
+                url: "/User/GetServiceHtml",
+                type: "GET",
+                data: { 'jsonString': jsonString },
+                success: function (formatedServices) {
+                    $("#servicesList").html(formatedServices);
+                    console.log("success?");
+                }
+            });
+        });
+        $("#allCompanies").change(function () {
+            document.getElementById('selectedCompany').value = $(this).val();
+        });
+    });
+    function addServiceToArray() {
+            var labelValue = $('#inputLabel').val();
+            var amountValue = $('#inputAmount').val();
+            var priceValue = $('#inputPrice').val();
+            servicesArray.push({ Label: labelValue, Amount: amountValue, Price: priceValue });
+    }
+
+    function printAllServices() {
+        document.getElementById('servicesList').innerHTML = "";
+        for (var i = 0; i < servicesArray.length; i++) {
+            var listItem = document.createElement('li');
+            listItem.innerText = servicesArray[i].Label + " " + servicesArray[i].Amount + " " + servicesArray[i].Price;
+            listItem.className += "list-group-item";
+            listItem.className += " list-group-item-success";
+            document.getElementById('servicesList').appendChild(listItem);
+        }
+    }
+    function serializeArrayToJson() {
+
+        var jsonString = JSON.stringify(servicesArray);
+        document.getElementById('jsonPlace').value = jsonString;
+    }
+</script>
+

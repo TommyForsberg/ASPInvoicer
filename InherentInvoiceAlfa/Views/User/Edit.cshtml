@@ -1,0 +1,91 @@
+﻿@model EditUserVM
+
+@{
+    ViewBag.Title = "Mitt bolag";
+}
+<h1>Mitt bolag</h1>
+<hr />
+<div class="col-sm-6 col-sm-offset-3">
+
+    <form asp-controller="User" asp-action="Edit">
+
+        <div class="row">
+            <div class="col-6 col-md-4">
+                <!--Input field for first name with validation span-->
+                <label asp-for="@Model.FirstName"></label>
+                <input class="form-control" asp-for="@Model.FirstName" />
+                <span asp-validation-for="@Model.FirstName"></span>
+            </div>
+            <!--Input field for last name with validation span-->
+            <div class="col-6 col-md-8">
+                <label asp-for="LastName"></label>
+                <input class="form-control" asp-for="LastName" />
+                </div>
+            </div>
+        <div class="form-group">
+            <!--Input field for street with validation span-->
+            <label asp-for="@Model.Street"></label>
+            <input class="form-control" asp-for="@Model.Street" />
+            <span asp-validation-for="@Model.Street"></span>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-8">
+                <!--Input field for postal adress with validation span-->
+                <label asp-for="@Model.PostalAddress"></label>
+                <input class="form-control" asp-for="@Model.PostalAddress"/>
+                <span asp-validation-for="@Model.PostalAddress"></span>
+            </div>
+            <div class="col-6 col-md-4">
+                <!--Input field for city with validation span-->
+                <label asp-for="@Model.City"></label>
+                <input class="form-control" asp-for="@Model.City"/>
+                <span asp-validation-for="@Model.City"></span>
+            </div>
+            </div>
+            <div class="row">
+                <!--Collapsing row with bankfields-->
+                <div class="col-6 col-sm-3">
+                    <!--Input field for giro with validation span-->
+                    <label asp-for="@Model.Giro"></label>
+                    <input asp-for="@Model.Giro" class="form-control" placeholder="Giro">
+                    <span asp-validation-for="@Model.Giro"></span>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <!--Input field for bankaccount with validation span-->
+                    <label asp-for="@Model.BankAccount"></label>
+                    <input asp-for="@Model.BankAccount" class="form-control">
+                    <span asp-validation-for="@Model.BankAccount"></span>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <!--Input field for iban with validation span-->
+                    <label asp-for="@Model.Iban"></label>
+                    <input asp-for="@Model.Iban" class="form-control">
+                    <span asp-validation-for="@Model.Iban"></span>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <!--Input field for bic with validation span-->
+                    <label asp-for="@Model.BicSwift"></label>
+                    <input asp-for="@Model.BicSwift" class="form-control">
+                    <span asp-validation-for="@Model.BicSwift"></span>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-6 col-md-6">
+                <!--Input field for Email with validation span-->
+                <label asp-for="Email"></label>
+                <input class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="col-6 col-md-6">
+                <!--Input field for phone with validation span-->
+                <label asp-for="Phone"></label>
+                <input class="form-control" asp-for="Phone" />
+                <span asp-validation-for="Phone"></span>
+            </div>
+        </div>
+        <br />
+        <br />
+            <input class="btn btn-success" type="submit" value="Ändra!" />
+
+</form>
+</div>

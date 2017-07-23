@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" , initial-scale="1" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />     
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Static navbar -->
+@if (User.Identity.IsAuthenticated)
+{
+    @Html.Partial("_NavBarAuthenticated");
+}
+else
+{
+@Html.Partial("_NavBar");
+}
+    </div>
+    <div class="container"> <!--Can be changed to container-fluid-->
+        @*<div class="row content">*@
+            <div id="mainDiv" class="col-lg-12">
+                @RenderBody()
+            </div>
+        </div>
+    @*</div>*@
+
+
+    <script src="~/js/jquery-3.1.1.min.js"></script>
+    @RenderSection("scripts", false)
+    <script src="~/js/bootstrap.min.js"></script>
+    @RenderSection("pageSpecificScripts", false)
+</body>
+</html>

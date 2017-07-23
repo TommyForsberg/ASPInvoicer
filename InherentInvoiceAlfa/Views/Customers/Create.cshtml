@@ -1,0 +1,33 @@
+﻿@model CreateCustomerVM
+@{ 
+    ViewBag.Title = "Lägg till kund";
+}
+<h1>Lägg till kund</h1>
+<hr />
+<div class="container-fluid">
+    <form asp-controller="Customers" asp-action="Create" method="post">
+        <fieldset class="fieldSet">
+            <!-- Name -->
+            <div class="input-group">
+                <span asp-validation-for="@Model.Name" class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+                <input asp-for="@Model.Name" class="form-control">
+            </div>
+            <br />
+            <!-- Address -->
+            <div class="input-group">
+                <span asp-validation-for="@Model.Adress" class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input asp-for="@Model.Adress" class="form-control">
+            </div>
+            <br />
+            <!-- Submit button -->
+            <br />
+            
+                <button type="submit" class="btn btn-success">Lägg till kund</button>
+            @if (TempData[nameof(CreateCustomerVM.Name)] != null)
+            {
+                var customerName = (string)TempData[nameof(CreateCustomerVM.Name)];
+            <span class="bg-warning" style="font-size: large">   @customerName har lagts till!</span>
+            }
+        </fieldset>
+    </form>
+</div>
